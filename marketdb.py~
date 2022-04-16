@@ -1,0 +1,22 @@
+from flask import flask
+from flask import SQLAlchemy as db
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///market.db'
+db = SQLAlchemy(app)
+
+db.create_all()
+
+#local database
+class Item(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(length=30), nullable=False, unique=True)
+    price = db.Column(db.Integer(), nullable=False)
+    barcode = db.Column(db.String(length=12), nullable=False, unique=True)
+    description = db.Column(db.String(length=1024), nullable=False, unique=True)
+
+
+Item1 = Item(name="Anime DVD", price="50", barcode="423213296896", description="Desc")
+
+db.add(Item1)
+
+db.commit()
